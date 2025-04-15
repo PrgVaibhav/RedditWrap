@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@import "tailwindcss";
+
+.jet {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.rubik {
+  font-family: 'Rubik', sans-serif;
+}
+
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 transparent;
+  /* thumb and track */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 4px;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  /* Tailwind slate-600 */
+  border-radius: 9999px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body {
+  background: #0d1119;
+  color: #ddd;
+}
+
+.nav {
+  background: #0a0e16;
+}
+
+.card-color {
+  background: #10151e;
+}
