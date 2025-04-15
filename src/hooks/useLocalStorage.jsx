@@ -11,11 +11,6 @@ export const useLocalStorage = (key, initialValue = []) => {
     }
   });
 
-  console.log(
-    "🧾 Current LocalStorage:",
-    JSON.parse(localStorage.getItem(key))
-  );
-
   const addToLocalStorage = (data) => {
     if (!data) {
       return alert("Data is needed to store in local storage");
@@ -41,6 +36,7 @@ export const useLocalStorage = (key, initialValue = []) => {
     const updatedList = localData.filter((data) => data.id !== id);
 
     setLocalData(updatedList);
+    localStorage.setItem(key, JSON.stringify(updatedList));
   };
 
   return { localData, addToLocalStorage, removeFromLocalStorage };

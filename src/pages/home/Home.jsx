@@ -2,11 +2,9 @@ import React from "react";
 import { Posts, PostSkeleton } from "../../components";
 import { useApi } from "../../hooks/useApi";
 import { useSubreddit } from "../../context/subredditContext";
-import { CircleAlert } from "lucide-react";
 
 export const Home = () => {
   const { subreddit } = useSubreddit();
-  console.log(`Subreddit: ${subreddit}`);
 
   const { data, hasError, isLoading } = useApi({
     subreddit: subreddit || "Technology",
@@ -33,21 +31,18 @@ export const Home = () => {
   const rawPosts = data?.data?.children?.map((d) => d.data) || [];
   const topPosts = [...rawPosts].sort((a, b) => b.score - a.score);
 
-  console.log("Top posts:", topPosts); // for development inspection
-
   return (
     <section className="p-5 flex flex-col gap-3">
-      <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-2  shadow-md max-w-max">
+      <div className="rounded-xl border border-blue-500/30 bg-blue-500/10 p-2 shadow-md max-w-max">
         <p className="rubik text-sm text-gray-300 leading-relaxed flex items-center gap-2">
-          <CircleAlert size={14} />
-          Default subreddit is initialized as Technology
+          Default subreddit is initialized as Technology, and also from default
+          you will see the top posts from any subreddit.
         </p>
       </div>
-      <div className="flex flex-wrap items-stretch gap-4 relative w-full m-auto">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
         {topPosts.map((post) => (
-          <div key={post.id} className="w-full md:w-[45vw] lg:[35vw] relative">
-            <Posts post={post} />
-          </div>
+          <Posts key={post.id} post={post} />
         ))}
       </div>
     </section>

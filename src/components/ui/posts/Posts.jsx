@@ -4,9 +4,11 @@ import { timeSince } from "../../../helper/utils/showTime";
 import { Modal } from "../modal/Modal";
 import { PostModal } from "../modal/post-modal/PostModal";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
+import { useLocation } from "react-router-dom";
 
 export const Posts = ({ post }) => {
   const [modal, setModal] = useState(false);
+  const path = useLocation();
 
   const getPreviewText = (text) => {
     const cleanText = text || "This post doesn't contain any description.";
@@ -21,17 +23,20 @@ export const Posts = ({ post }) => {
   const { addToLocalStorage, localData, removeFromLocalStorage } =
     useLocalStorage("localData");
 
-  console.log(`LocalStorage: ${localData}`);
-
   const id = localData.map((data) => data.id);
-  console.log(`id: ${id}`);
+
+  const cardHeight = path.pathname.includes("saved")
+    ? "h-auto md:h-[40vh] lg:[35vh]"
+    : "md:h-[50vh] lg:h-[35vh]";
 
   return (
     <>
-      <div className="card-color h-auto md:h-[30vh] lg:h-[14vw] hover:bg-[#252933] transition-all duration-300 border border-slate-700 shadow-lg  rounded-xl flex justify-between gap-4 transform hover:scale-[1.01] relative cursor-pointer">
+      <div
+        className={`card-color w-full hover:bg-[#252933] transition-all duration-300 border border-slate-700 shadow-lg rounded-xl flex justify-between gap-4 transform hover:scale-[1.01] relative cursor-pointer ${cardHeight}`}
+      >
         <div className="flex flex-col justify-between w-full">
           {/* Subreddit Badge */}
-          <div className="flex items-center justify-between mb-2 nav p-2 rounded-xl">
+          <div className="flex flex-wrap gap-3 items-center justify-between mb-2 nav p-2 rounded-xl">
             <p className="text-xs bg-neutral-500 text-white px-2 py-[2px] rounded-full w-max uppercase tracking-wide rubik">
               r/{post.subreddit}
             </p>
@@ -53,7 +58,7 @@ export const Posts = ({ post }) => {
           </div>
 
           {/* Author + Metrics */}
-          <div className="flex items-center justify-between text-xs text-gray-400 mt-auto p-2 border-t border-slate-700">
+          <div className="flex flex-wrap gap-3 items-center justify-between text-xs text-gray-400 mt-auto p-2 border-t border-slate-700">
             <div className="flex items-center gap-3 rubik">
               <p>By: u/{post.author}</p>
               <div className="cursor-pointer">
@@ -93,13 +98,3 @@ export const Posts = ({ post }) => {
     </>
   );
 };
-
-// {/* Read More */}
-// <a
-//   href={`https://reddit.com${post.permalink}`}
-//   target="_blank"
-//   rel="noopener noreferrer"
-//   className="text-sm text-blue-400 hover:underline mt-3 inline-block"
-// >
-//   Read full post →
-// </a>
